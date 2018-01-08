@@ -3,7 +3,9 @@ const iotData = new AWS.IotData({
   endpoint: 'a1w994n28goxho.iot.eu-central-1.amazonaws.com',
   apiVersion: '2015-05-28'
 });
+const dynamoDb = new AWS.DynamoDB.DocumentClient();
 const RoutingEventHandler = require('./routing-event-handler');
+const DeviceType = require('./device-type');
 
 
 module.exports = class SensorEventHandler extends RoutingEventHandler {
@@ -12,10 +14,29 @@ module.exports = class SensorEventHandler extends RoutingEventHandler {
       return Promise.resolve();
     }
 
-    return iotData.publish({
-      // TODO where/what to pub?!
-      topic: 'actors/123',
-      payload: 'test'
+    return this._getActors().then(actorsData =>
+      Promise.all(actorsData.Items.map(actorData =>
+        iotData.publish({
+          topic: 'actors/' + actorData.id,
+          payload: ''
+        }).promise()
+      ))
+    );
+  }
+
+  _getActors() {
+    return dynamoDb.query({
+      TableName: 'PigeonDefender.Devices',
+      IndexName: 'groupId-index',
+      FilterExpression: '#DeviceType = :deviceType',
+      KeyConditionExpression: 'groupId = :groupId',
+      ExpressionAttributeNames: {
+        '#DeviceType': 'type'
+      },
+      ExpressionAttributeValues: {
+        ':deviceType': DeviceType.ACTOR,
+        ':groupId': this.messageContext.groupData.id
+      }
     }).promise();
   }
 };

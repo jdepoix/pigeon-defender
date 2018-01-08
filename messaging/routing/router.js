@@ -2,13 +2,8 @@ const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 const SensorEventHandler = require('./sensor-event-handler');
 const CircuitBreakerEventHandler = require('./circuit-breaker-event-handler');
+const DeviceType = require('./device-type');
 
-
-const DeviceType = {
-  SENSOR: 'SENSOR',
-  ACTOR: 'ACTOR',
-  CIRCUIT_BREAKER: 'CIRCUIT_BREAKER'
-};
 
 module.exports = class Router {
   static routeMessage(clientId) {

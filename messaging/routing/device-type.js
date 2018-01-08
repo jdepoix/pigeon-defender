@@ -1,0 +1,5 @@
+module.exports = {
+  SENSOR: 'SENSOR',
+  ACTOR: 'ACTOR',
+  CIRCUIT_BREAKER: 'CIRCUIT_BREAKER'
+};
