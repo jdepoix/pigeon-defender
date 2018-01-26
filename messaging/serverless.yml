@@ -30,11 +30,8 @@ provider:
       Resource: "arn:aws:iot:eu-central-1:744692364432:topic/actors/*"
     - Effect: Allow
       Action:
-        # - dynamodb:DescribeTable
         - dynamodb:Query
-        # - dynamodb:Scan
         - dynamodb:GetItem
-        # - dynamodb:PutItem
         - dynamodb:UpdateItem
       Resource: "arn:aws:dynamodb:eu-central-1:744692364432:table/PigeonDefender.*"
 #    - Effect: "Allow"
