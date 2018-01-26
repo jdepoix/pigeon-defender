@@ -1,1 +1,173 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+  margin: 0 !important;
+  background-color: #eee;
+  overflow: hidden;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.center-content-vertically {
+  display: flex;
+  align-items: center;
+}
+
+.center-content-horizontally {
+  display: flex;
+  justify-content: center;
+}
+
+.pull-right {
+  float: right;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.transparent-background {
+  background-color: rgba(0, 0, 0, .4);
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.container {
+  margin: 30px auto;
+  max-width: 1280px;
+  width: 90%;
+}
+
+@media only screen and (min-width : 601px) {
+  .container {
+    width: 85%;
+  }
+}
+
+@media only screen and (min-width : 993px) {
+  .container {
+    width: 70%;
+  }
+}
+
+.slide-in {
+  animation-name: slideIn;
+  animation-duration: .7s;
+  animation-timing-function: cubic-bezier(0.38, 0.19, 0.26, 1.08);
+}
+
+.slide-in-top {
+  animation-name: slideInTop;
+  animation-duration: .7s;
+  animation-timing-function: cubic-bezier(0.38, 0.19, 0.26, 1.08);
+}
+
+.slide-in-left {
+  animation-name: slideInLeft;
+  animation-duration: .7s;
+  animation-timing-function: cubic-bezier(0.38, 0.19, 0.26, 1.08);
+}
+
+.slide-in-right {
+  animation-name: slideInRight;
+  animation-duration: .7s;
+  animation-timing-function: cubic-bezier(0.38, 0.19, 0.26, 1.08);
+}
+
+.slide-out {
+  animation-direction: reverse;
+  animation-name: slideIn;
+  animation-duration: .7s;
+  animation-timing-function: cubic-bezier(0.38, 0.19, 0.26, 1.08);
+}
+
+.slide-out-top {
+  animation-direction: reverse;
+  animation-name: slideInTop;
+  animation-duration: .7s;
+  animation-timing-function: cubic-bezier(0.38, 0.19, 0.26, 1.08);
+}
+
+.slide-out-left {
+  animation-direction: reverse;
+  animation-name: slideInLeft;
+  animation-duration: .7s;
+  animation-timing-function: cubic-bezier(0.38, 0.19, 0.26, 1.08);
+}
+
+.slide-out-right {
+  animation-name: slideInRight;
+  animation-duration: .7s;
+  animation-timing-function: cubic-bezier(0.38, 0.19, 0.26, 1.08);
+  animation-direction: reverse;
+}
+
+.fade-in {
+  animation: fadeIn .4s ease-in;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    -webkit-transform: translateY(100%) translateZ(0);
+    transform: translateY(100%) translateZ(0);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0px) translateZ(0);
+    transform: translateY(0px) translateZ(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInTop {
+  0% {
+    -webkit-transform: translateY(-100%) translateZ(0);
+    transform: translateY(-100%) translateZ(0);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0px) translateZ(0);
+    transform: translateY(0px) translateZ(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    -webkit-transform: translateX(100%) translateZ(0);
+    transform: translateX(100%) translateZ(0);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0px) translateZ(0);
+    transform: translateX(0px) translateZ(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    -webkit-transform: translateX(-100%) translateZ(0);
+    transform: translateX(-100%) translateZ(0);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0px) translateZ(0);
+    transform: translateX(0px) translateZ(0);
+    opacity: 1;
+  }
+}
