@@ -13,15 +13,20 @@ export class Group {
 
 @Injectable()
 export class GroupService extends UserDataService<Group> {
-  protected readonly tableName = 'PigeonDefender.Groups';
+  protected readonly _tableName = 'PigeonDefender.Groups';
 
   constructor(authenticationService: AuthenticationService) {
     super(authenticationService);
+    this._authenticationService.onLogin.subscribe(() => this._loadItems());
+    this._authenticationService.onLogin.subscribe(() => this._clearItems());
+    if (this._authenticationService.currentUser) {
+      this._loadItems();
+    }
   }
 
-  add(name: string): Promise<Array<Group>> {
-    return new DocumentClient().put({
-      TableName: this.tableName,
+  add(name: string): void {
+    new DocumentClient().put({
+      TableName: this._tableName,
       Item: {
         id: uuid(),
         name: name,

@@ -1,27 +1,29 @@
 import {AuthenticationService} from './authentication.service';
 import {DocumentClient} from 'aws-sdk/clients/dynamodb';
+import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 export abstract class UserDataService<ModelType> {
-  protected abstract readonly tableName: string;
+  private _itemsSubject: BehaviorSubject<Array<ModelType>> = new BehaviorSubject<Array<ModelType>>([]);
 
-  items: Array<ModelType> = [];
+  protected abstract readonly _tableName: string;
 
-  constructor(protected _authenticationService: AuthenticationService) {
-    this._authenticationService.onLogin.subscribe(() => this._loadItems());
-    this._authenticationService.onLogin.subscribe(() => this.items = []);
-  }
+  items: Observable<Array<ModelType>> = this._itemsSubject.asObservable();
 
-  protected _loadItems(): Promise<Array<ModelType>> {
-    return new DocumentClient().query({
-      TableName: this.tableName,
+  constructor(protected _authenticationService: AuthenticationService) { }
+
+  protected _loadItems(): void {
+    new DocumentClient().query({
+      TableName: this._tableName,
       IndexName: 'userId-index',
       KeyConditionExpression: 'userId = :userId',
       ExpressionAttributeValues: {
         ':userId': this._authenticationService.currentUser.user.getUsername()
       }
-    }).promise().then(result => {
-      this.items = <Array<ModelType>> result.Items;
-      return Promise.resolve(this.items);
-    });
+    }).promise().then(result => this._itemsSubject.next(<Array<ModelType>> result.Items));
+  }
+
+  protected _clearItems(): void {
+    this._itemsSubject.next([]);
   }
 }
