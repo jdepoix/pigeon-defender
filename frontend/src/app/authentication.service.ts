@@ -66,6 +66,7 @@ export class AuthenticationService {
   logout(): void {
     if (this.currentUser) {
       this.currentUser.user.signOut();
+      (<AWS.CognitoIdentityCredentials> AWS.config.credentials).clearCachedId();
       this.currentUser = null;
       this._logoutSubject.next();
     }
