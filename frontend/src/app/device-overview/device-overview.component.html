@@ -1,0 +1,28 @@
+<div>
+  <button id="add-device-button" class="slide-in-right" mat-fab (click)="openAddDeviceDialog()"><mat-icon>add</mat-icon></button>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <mat-card class="group-chooser-card">
+          <mat-tab-group class="group-chooser-tab-group" (selectedIndexChange)="selectGroup($event)">
+            <mat-tab class="full-width" label="Unassigned Devices"></mat-tab>
+            <mat-tab class="full-width" label="{{ group.name }}" *ngFor="let group of groupService.items | async"></mat-tab>
+          </mat-tab-group>
+          <button class="add-group-button" mat-icon-button (click)="openAddGroupDialog()"><mat-icon>add</mat-icon></button>
+        </mat-card>
+      </div>
+      <div class="col-xs-6" *ngFor="let device of selectedDevices | async">
+        <mat-card class="device-card slide-in">
+          <div class="device-type-icon-container primary-background pull-left center-content-vertically center-content-horizontally">
+            <i class="device-icon material-icons" *ngIf="device.type === DeviceType.SENSOR">track_changes</i>
+            <i class="device-icon material-icons" *ngIf="device.type === DeviceType.ACTOR">volume_up</i>
+            <i class="device-icon material-icons" *ngIf="device.type === DeviceType.CIRCUIT_BREAKER">radio_button_checked</i>
+          </div>
+          <div class="pull-left full-height center-content-vertically device-name-container">
+            {{ device.id }}
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

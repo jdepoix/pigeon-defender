@@ -1,0 +1,54 @@
+.group-chooser-card {
+  padding: 0;
+}
+
+.mat-tab-labels {
+  justify-content: space-around;
+}
+
+.mat-tab-label {
+  width: 100%;
+}
+
+.device-card {
+  margin-top: 16px;
+  height: 52px;
+}
+
+.device-type-icon-container {
+  width: 100px;
+  height: 100px;
+}
+
+.device-type-icon-container {
+  margin: -24px !important;
+  margin-right: 0 !important;;
+}
+
+.device-name-container {
+  padding-left: 24px;
+}
+
+.device-icon {
+  color: white;
+  font-size: 80px;
+}
+
+#add-device-button {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 72px;
+  height: 72px;
+  z-index: 100;
+}
+
+.group-chooser-tab-group {
+  display: inline-flex !important;
+  width: calc(100% - 53px);
+}
+
+.add-group-button {
+  width: 49px;
+  height: 49px;
+}
