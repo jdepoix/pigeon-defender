@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AuthenticationService} from './authentication.service';
 import {DocumentClient} from 'aws-sdk/clients/dynamodb';
+import {UserDataService} from './user-data.service';
 
 export enum DeviceType {
   SENSOR = 'SENSOR',
@@ -15,49 +16,33 @@ export interface Device {
   type: DeviceType;
 }
 
-@Injectable()export class DeviceService {
-  private static _DEVICE_TABLE = 'PigeonDefender.Devices';
+@Injectable()
+export class DeviceService extends UserDataService<Device> {
+  protected readonly tableName = 'PigeonDefender.Devices';
 
-  devices: Array<Device> = [];
-
-  constructor(private _authenticationService: AuthenticationService) {
-    this._authenticationService.onLogin.subscribe(() => this._loadDevices());
-    this._authenticationService.onLogin.subscribe(() => this.devices = []);
-  }
-
-  private _loadDevices(): Promise<Array<Device>> {
-    return new DocumentClient().query({
-      TableName: DeviceService._DEVICE_TABLE,
-      IndexName: 'userId-index',
-      KeyConditionExpression: 'userId = :userId',
-      ExpressionAttributeValues: {
-        ':userId': this._authenticationService.currentUser.user.getUsername()
-      }
-    }).promise().then(result => {
-      this.devices = <Array<Device>> result.Items;
-      return Promise.resolve(this.devices);
-    });
+  constructor(authenticationService: AuthenticationService) {
+    super(authenticationService);
   }
 
   getForGroup(groupId: string): Array<Device> {
-    return this.devices.filter(item => item.groupId === groupId);
+    return this.items.filter(item => item.groupId === groupId);
   }
 
   addDevice(deviceId: string): Promise<Array<Device>> {
     return new DocumentClient().update({
-      TableName: DeviceService._DEVICE_TABLE,
+      TableName: this.tableName,
       Key: {id: deviceId},
       UpdateExpression: 'set userId = :userId',
       ExpressionAttributeValues: {':userId': this._authenticationService.currentUser.user.getUsername()}
-    }).promise().then(() => this._loadDevices());
+    }).promise().then(() => this._loadItems());
   }
 
   addDeviceToGroup(deviceId: string, groupId: string): Promise<Array<Device>> {
     return new DocumentClient().update({
-      TableName: DeviceService._DEVICE_TABLE,
+      TableName: this.tableName,
       Key: {id: deviceId},
       UpdateExpression: 'set groupId = :groupId',
       ExpressionAttributeValues: {':groupId': groupId }
-    }).promise().then(() => this._loadDevices());
+    }).promise().then(() => this._loadItems());
   }
 }
