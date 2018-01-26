@@ -5,7 +5,7 @@
     <ng-template [ngIf]="authenticationService.currentUser">
       <mat-icon>account_circle</mat-icon>
       <span class="toolbar-item">{{ authenticationService.currentUser.email }}</span>
-      <button mat-icon-button class="toolbar-item" (click)="authenticationService.logout()"><mat-icon style="transform: rotate(90deg);" >file_upload</mat-icon></button>
+      <button mat-icon-button (click)="authenticationService.logout()"><mat-icon style="transform: rotate(90deg);" >file_upload</mat-icon></button>
     </ng-template>
   </mat-toolbar>
 </div>
