@@ -7,6 +7,8 @@ const DeviceType = require('./device-type');
 
 module.exports = class Router {
   static routeMessage(clientId) {
+    console.log('start routing message for client: ' + clientId);
+
     return Router._getMessageContext(clientId).then(messageContext => {
       if (!Router._eventHandlerMapping.hasOwnProperty(messageContext.deviceData.type)) {
         return Promise.resolve();

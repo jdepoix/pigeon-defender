@@ -15,12 +15,13 @@ module.exports = class SensorEventHandler extends RoutingEventHandler {
     }
 
     return this._getActors().then(actorsData =>
-      Promise.all(actorsData.Items.map(actorData =>
-        iotData.publish({
+      Promise.all(actorsData.Items.map(actorData => {
+        console.log('publishing to topic: actors/' + actorData.id)
+        return iotData.publish({
           topic: 'actors/' + actorData.id,
-          payload: ''
+          payload: '{}'
         }).promise()
-      ))
+      }))
     );
   }
 
