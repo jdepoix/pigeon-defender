@@ -18,3 +18,9 @@
   bottom: 0;
   overflow: auto;
 }
+
+@media (max-width: 600px) {
+  .app-container {
+    top: 56px;
+  }
+}

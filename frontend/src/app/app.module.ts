@@ -4,8 +4,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {
   MatToolbarModule, MatIconModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSnackBarModule, MatTabsModule,
-  MatDialogModule
+  MatDialogModule, MatTooltipModule
 } from '@angular/material';
+
+import { NgDragDropModule } from 'ng-drag-drop';
 
 import {AppComponent} from './app.component';
 import {AuthenticationService} from './authentication.service';
@@ -31,6 +33,7 @@ import { AddDeviceDialogComponent } from './add-device-dialog/add-device-dialog.
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    NgDragDropModule.forRoot(),
     FormsModule,
     // angular material modules
     MatToolbarModule,
@@ -41,7 +44,8 @@ import { AddDeviceDialogComponent } from './add-device-dialog/add-device-dialog.
     MatButtonModule,
     MatSnackBarModule,
     MatTabsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule
   ],
   providers: [
     AuthenticationService,

@@ -1,10 +1,10 @@
 <div class="header-container">
   <mat-toolbar color="primary" class="mat-elevation-z4 slide-in-top">
-    <span class="toolbar-item">PIGEONDEFENDER</span>
+    <span class="toolbar-item">PigeonDefender</span>
     <span class="toolbar-spacer"></span>
     <ng-template [ngIf]="authenticationService.currentUser">
       <mat-icon>account_circle</mat-icon>
-      <span class="toolbar-item">{{ authenticationService.currentUser.email }}</span>
+      <span class="toolbar-item hide-on-mobile">{{ authenticationService.currentUser.email }}</span>
       <button mat-icon-button (click)="authenticationService.logout()"><mat-icon style="transform: rotate(90deg);" >file_upload</mat-icon></button>
     </ng-template>
   </mat-toolbar>
