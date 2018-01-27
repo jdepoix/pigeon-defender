@@ -2,6 +2,9 @@ import {Component, ViewEncapsulation} from '@angular/core';
 import {Device, DeviceService, DeviceType} from '../device.service';
 import {Group, GroupService} from '../group.service';
 import {Observable} from 'rxjs/Observable';
+import {MatDialog} from '@angular/material';
+import {AddDeviceDialogComponent} from '../add-device-dialog/add-device-dialog.component';
+import {AddGroupDialogComponent} from '../add-group-dialog/add-group-dialog.component';
 
 @Component({
   selector: 'app-device-overview',
@@ -14,7 +17,7 @@ export class DeviceOverviewComponent {
   selectedDevices: Observable<Array<Device>> = this.deviceService.getForGroup('null');
   currentGroups: Array<Group> = [];
 
-  constructor(public deviceService: DeviceService, public groupService: GroupService) {
+  constructor(public deviceService: DeviceService, public groupService: GroupService, private _dialog: MatDialog) {
     this.groupService.items.subscribe(groups => this.currentGroups = groups);
   }
 
@@ -23,10 +26,14 @@ export class DeviceOverviewComponent {
   }
 
   openAddDeviceDialog(): void {
-    // TODO
+    this._dialog.open(AddDeviceDialogComponent, {
+      width: '600px'
+    });
   }
 
   openAddGroupDialog(): void {
-    // TODO
+    this._dialog.open(AddGroupDialogComponent, {
+      width: '600px'
+    });
   }
 }
