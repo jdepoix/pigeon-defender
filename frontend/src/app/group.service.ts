@@ -36,8 +36,24 @@ export class GroupService extends UserDataService<Group> {
     }).promise().then(() => this._loadItems());
   }
 
-  toggleCircuitBreaker(): Promise<void> {
-    // TODO
-    return null;
+  toggleCircuitBreaker(groupId: string): Promise<Array<Group>> {
+    return new DocumentClient().query({
+      TableName: this._tableName,
+      KeyConditionExpression: 'id = :groupId',
+      ExpressionAttributeValues: {
+        ':groupId': groupId
+      }
+    }).promise().then(result => {
+      if (result.Items) {
+        return new DocumentClient().update({
+          TableName: this._tableName,
+          Key: {id: groupId},
+          UpdateExpression: 'set active = :groupState',
+          ExpressionAttributeValues: {':groupState': !result.Items[0].active }
+        }).promise();
+      } else {
+        return Promise.reject('Group does not exist');
+      }
+    }).then(() => this._loadItems());
   }
 }

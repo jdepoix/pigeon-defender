@@ -19,8 +19,8 @@
           <button class="add-group-button" mat-icon-button (click)="openAddGroupDialog()" matTooltip="Add group" matTooltipPosition="below"><mat-icon>add</mat-icon></button>
         </mat-card>
       </div>
-      <div class="col-xs-12 col-md-6" *ngFor="let device of selectedDevices | async">
-        <mat-card class="device-card slide-in" draggable [dragData]="device">
+      <div class="col-xs-12 col-md-6" *ngFor="let device of selectedDevices | async; trackBy: identifyDevice" [@flyInOut]="'in'">
+        <mat-card class="device-card" draggable [dragData]="device">
           <div class="device-type-icon-container primary-background pull-left center-content-vertically center-content-horizontally">
             <i class="device-icon material-icons" *ngIf="device.type === DeviceType.SENSOR">track_changes</i>
             <i class="device-icon material-icons" *ngIf="device.type === DeviceType.ACTOR">volume_up</i>
