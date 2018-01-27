@@ -12,15 +12,19 @@ export abstract class UserDataService<ModelType> {
 
   constructor(protected _authenticationService: AuthenticationService) { }
 
-  protected _loadItems(): void {
-    new DocumentClient().query({
+  protected _loadItems(): Promise<Array<ModelType>> {
+    return new DocumentClient().query({
       TableName: this._tableName,
       IndexName: 'userId-index',
       KeyConditionExpression: 'userId = :userId',
       ExpressionAttributeValues: {
         ':userId': this._authenticationService.currentUser.user.getUsername()
       }
-    }).promise().then(result => this._itemsSubject.next(<Array<ModelType>> result.Items));
+    }).promise().then(result => {
+      const items = <Array<ModelType>> result.Items;
+      this._itemsSubject.next(items);
+      return Promise.resolve(items);
+    });
   }
 
   protected _clearItems(): void {
