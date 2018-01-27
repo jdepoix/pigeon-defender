@@ -35,8 +35,8 @@ export class DeviceService extends UserDataService<Device> {
     return this.items.map(items => items.filter(item => item.groupId === groupId));
   }
 
-  addDevice(deviceId: string): void {
-    new DocumentClient().update({
+  addDevice(deviceId: string): Promise<Array<Device>> {
+    return new DocumentClient().update({
       TableName: this._tableName,
       Key: {id: deviceId},
       UpdateExpression: 'set userId = :userId',
@@ -44,8 +44,8 @@ export class DeviceService extends UserDataService<Device> {
     }).promise().then(() => this._loadItems());
   }
 
-  addDeviceToGroup(deviceId: string, groupId: string): void {
-    new DocumentClient().update({
+  addDeviceToGroup(deviceId: string, groupId: string): Promise<Array<Device>> {
+    return new DocumentClient().update({
       TableName: this._tableName,
       Key: {id: deviceId},
       UpdateExpression: 'set groupId = :groupId',

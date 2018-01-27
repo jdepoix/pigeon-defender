@@ -24,8 +24,8 @@ export class GroupService extends UserDataService<Group> {
     }
   }
 
-  add(name: string): void {
-    new DocumentClient().put({
+  add(name: string): Promise<Array<Group>> {
+    return new DocumentClient().put({
       TableName: this._tableName,
       Item: {
         id: uuid(),
