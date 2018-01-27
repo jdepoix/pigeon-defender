@@ -19,7 +19,11 @@ module.exports = class SensorEventHandler extends RoutingEventHandler {
         console.log('publishing to topic: actors/' + actorData.id)
         return iotData.publish({
           topic: 'actors/' + actorData.id,
-          payload: '{}'
+          payload: JSON.stringify({
+            duration: actorData.duration || 10000,
+            direction: actorData.direction || 1,
+            speed: actorData.speed || 40,
+          })
         }).promise()
       }))
     );
