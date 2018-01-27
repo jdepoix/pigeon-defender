@@ -7,12 +7,15 @@
           <mat-tab-group class="group-chooser-tab-group" (selectedIndexChange)="selectGroup($event)">
             <mat-tab class="full-width">
               <ng-template mat-tab-label>
-                <span class="full-width" droppable (onDrop)="deviceService.addDeviceToGroup($event.dragData.id, 'null')">Unassigned Devices</span>
+                <span class="full-height full-width center-content-horizontally center-content-vertically" droppable (onDrop)="deviceService.addDeviceToGroup($event.dragData.id, 'null')">Unassigned Devices</span>
               </ng-template>
             </mat-tab>
             <mat-tab class="full-width" *ngFor="let group of groupService.items | async">
               <ng-template mat-tab-label>
-                <span class="full-width" droppable (onDrop)="deviceService.addDeviceToGroup($event.dragData.id, group.id)">{{ group.name }}</span>
+                <span class="full-height full-width center-content-horizontally center-content-vertically" droppable (onDrop)="deviceService.addDeviceToGroup($event.dragData.id, group.id)">
+                  <i class="group-state-icon material-icons" *ngIf="group.active" (click)="groupService.toggleCircuitBreaker(group.id); $event.preventDefault(); $event.stopPropagation();">notifications_active</i>
+                  <i class="group-state-icon material-icons" *ngIf="!group.active" (click)="groupService.toggleCircuitBreaker(group.id); $event.preventDefault(); $event.stopPropagation();">notifications_off</i>{{ group.name }}
+                </span>
               </ng-template>
             </mat-tab>
           </mat-tab-group>

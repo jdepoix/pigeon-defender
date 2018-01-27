@@ -60,4 +60,8 @@ export class DeviceOverviewComponent {
   identifyDevice(index: number, device: Device): string {
     return device.id;
   }
+
+  toggleGroup(group) {
+    console.log(group);
+  }
 }
