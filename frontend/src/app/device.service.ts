@@ -40,7 +40,12 @@ export class DeviceService extends UserDataService<Device> {
       TableName: this._tableName,
       Key: {id: deviceId},
       UpdateExpression: 'set userId = :userId',
-      ExpressionAttributeValues: {':userId': this._authenticationService.currentUser.user.getUsername()}
+      ConditionExpression: 'id = :deviceId AND userId = :nullString',
+      ExpressionAttributeValues: {
+        ':deviceId': deviceId,
+        ':userId': this._authenticationService.currentUser.user.getUsername(),
+        ':nullString': 'null'
+      }
     }).promise().then(() => this._loadItems());
   }
 
