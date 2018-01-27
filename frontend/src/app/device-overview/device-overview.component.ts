@@ -36,4 +36,8 @@ export class DeviceOverviewComponent {
       width: '600px'
     });
   }
+
+  onItemDrop(event): void {
+    console.log(event);
+  }
 }
