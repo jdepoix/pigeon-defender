@@ -37,6 +37,6 @@ export class LoginComponent {
   }
 
   private _showSnackbarMessage(message: string): void {
-    this._snackBar.open(message, null, {duration: 1000});
+    this._snackBar.open(message, null, {duration: 2000});
   }
 }
