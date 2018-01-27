@@ -13,8 +13,8 @@
             <mat-tab class="full-width" *ngFor="let group of groupService.items | async">
               <ng-template mat-tab-label>
                 <span class="full-height full-width center-content-horizontally center-content-vertically" droppable (onDrop)="deviceService.addDeviceToGroup($event.dragData.id, group.id)">
-                  <i class="group-state-icon material-icons" *ngIf="group.active" (click)="groupService.toggleCircuitBreaker(group.id); $event.preventDefault(); $event.stopPropagation();">notifications_active</i>
-                  <i class="group-state-icon material-icons" *ngIf="!group.active" (click)="groupService.toggleCircuitBreaker(group.id); $event.preventDefault(); $event.stopPropagation();">notifications_off</i>{{ group.name }}
+                  <i class="group-state-icon material-icons" matTooltip="Deactivate group" matTooltipPosition="below" *ngIf="group.active" (click)="groupService.toggleCircuitBreaker(group.id); $event.preventDefault(); $event.stopPropagation();">notifications_active</i>
+                  <i class="group-state-icon material-icons" matTooltip="Activate group" matTooltipPosition="below" *ngIf="!group.active" (click)="groupService.toggleCircuitBreaker(group.id); $event.preventDefault(); $event.stopPropagation();">notifications_off</i>{{ group.name }}
                 </span>
               </ng-template>
             </mat-tab>
