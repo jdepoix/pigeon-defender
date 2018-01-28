@@ -4,11 +4,11 @@ const iotData = new AWS.IotData({
   apiVersion: '2015-05-28'
 });
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
-const RoutingEventHandler = require('./routing-event-handler');
+const MessagingEventHandler = require('./messaging-event-handler');
 const DeviceType = require('./device-type');
 
 
-module.exports = class SensorEventHandler extends RoutingEventHandler {
+module.exports = class SensorEventHandler extends MessagingEventHandler {
   handle() {
     if (!this.messageContext.groupData.active) {
       return Promise.resolve();
@@ -16,12 +16,11 @@ module.exports = class SensorEventHandler extends RoutingEventHandler {
 
     return this._getActors().then(actorsData =>
       Promise.all(actorsData.Items.map(actorData => {
-        console.log('publishing to topic: actors/' + actorData.id)
+        console.log('publishing to topic: actors/' + actorData.id);
         return iotData.publish({
           topic: 'actors/' + actorData.id,
           payload: JSON.stringify({
             duration: actorData.duration || 10000,
-            direction: actorData.direction || 1,
             speed: actorData.speed || 40,
           })
         }).promise()

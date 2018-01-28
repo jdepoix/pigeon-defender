@@ -1,4 +1,4 @@
-module.exports = class RoutingEventHandler {
+module.exports = class {
   constructor(messageContext) {
     this.messageContext = messageContext;
   }

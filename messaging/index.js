@@ -1,11 +1,8 @@
 'use strict';
 
-const Router = require('./routing/router');
+const MessagingEventManager = require('./messaging-event-manager');
+const SensorEventHandler = require('./sensor-event-handler');
+const CircuitBreakerEventHandler = require('./circuit-breaker-event-handler');
 
-module.exports.routing = (event, context, callback) => {
-  Router.routeMessage(event.clientId).then(
-    () => callback(null, null)
-  ).catch(
-    error => callback(error, null)
-  );
-};
+module.exports.sensors = MessagingEventManager.provide(SensorEventHandler);
+module.exports.circuitBreakers = MessagingEventManager.provide(CircuitBreakerEventHandler);
