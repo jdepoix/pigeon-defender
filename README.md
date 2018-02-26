@@ -1,2 +1,2 @@
-# pigeon-defender
-This is the backend for the IoT project "PIGEON DEFENDER". It's implemented using an AWS serverless stack and the serverless framework.
+# Pigeon Defender
+Find more details about this project in the [Wiki](https://github.com/jdepoix/pigeon-defender/wiki).
