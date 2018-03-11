@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg version="1.2" baseProfile="tiny" x="0in" y="0in" width="3.26041in" height="1.76315in" viewBox="0 0 234.749 126.947" xmlns="http://www.w3.org/2000/svg">
+<svg version="1.2" baseProfile="tiny" x="0in" y="0in" width="3.26041in" height="1.76315in" viewBox="0 0 234.749 126.947" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <bx:guide x="54.255" y="28.9" angle="0"/>
+    <bx:guide x="83.864" y="32.801" angle="0"/>
+  </defs>
   <g partid="107050">
     <g transform="translate(47.2001,11.8489)">
       <g gorn="0.3.0" id="schematic">
@@ -570,6 +574,13 @@
       <g font-size="5" font-style="normal" font-weight="normal" fill="#000000" font-family="'DroidSans'" id="schematicLabel" fill-opacity="1" stroke="none">
         <text x="0" y="3.75" style="white-space: pre;">R1</text>
         <text x="0" y="8.75" style="white-space: pre;">1kΩ</text>
+      </g>
+    </g>
+  </g>
+  <g partid="108460" id="g-1" transform="matrix(1, 0, 0, 1, -18.056496, -85.860077)">
+    <g transform="translate(78.0932,103.043)">
+      <g font-size="5" font-style="normal" font-weight="normal" fill="#000000" font-family="'DroidSans'" id="g-2" fill-opacity="1" stroke="none">
+        <text x="-1.241" y="3.75" style="white-space: pre; font-size: 5px;">AMS1117</text>
       </g>
     </g>
   </g>
